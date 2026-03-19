@@ -1,0 +1,32 @@
+{
+  // Enable Deno for Supabase Functions folder
+  "deno.enable": true,
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+
+  // Standard Deno linting
+  "deno.lint": true,
+
+  // Enable Deno unstable APIs (required by Supabase)
+  "deno.unstable": [
+    "bare-node-builtins",
+    "byonm",
+    "sloppy-imports",
+    "unsafe-proto",
+    "webgpu",
+    "broadcast-channel",
+    "worker-options",
+    "cron",
+    "kv",
+    "ffi",
+    "fs",
+    "http",
+    "net"
+  ],
+
+  // Use the Deno formatter inside Deno files
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  }
+}

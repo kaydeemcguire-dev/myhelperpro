@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================
+   GLOBAL LOOK & FEEL
+========================================= */
+
+:root {
+  color-scheme: light;
+}
+
+/* ---------- Base Typography ---------- */
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #faf6f1; /* warm cream */
+  color: #3a302a;            /* soft espresso text */
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- Remove default browser link styles ---------- */
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  color: inherit;
+}
+
+/* ---------- Premium subtle transition for links ---------- */
+
+a {
+  transition: color 0.18s ease;
+}
+
+/* ---------- Form Controls ---------- */
+
+input,
+select,
+textarea {
+  border-radius: 9999px;
+  border: 1px solid #d4b59a; /* warm beige border */
+  padding: 0.5rem 0.875rem;
+  font-size: 0.95rem;
+  outline: none;
+  background: #ffffff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #2b4a2f;
+  box-shadow: 0 0 0 2px rgba(43, 74, 47, 0.08);
+}
+
+button {
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* ---------- GLOBAL IMAGE SAFETY ---------- */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

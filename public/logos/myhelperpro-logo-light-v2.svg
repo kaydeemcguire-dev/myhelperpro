@@ -1,0 +1,29 @@
+<svg width="580" height="150" viewBox="0 0 580 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="houseGradientV2" x1="0" y1="40" x2="0" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6EE7B7"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+  </defs>
+
+  <!-- House -->
+  <path d="M40 70 L75 45 L110 70 V110 H40 Z"
+        fill="url(#houseGradientV2)"/>
+
+  <!-- Centered Check -->
+  <path d="M58 88 L72 100 L95 72"
+        stroke="white"
+        stroke-width="6"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Larger Text with darker blue -->
+  <text x="125" y="110"
+        font-family="Inter, Arial, sans-serif"
+        font-size="60"
+        font-weight="600"
+        fill="#0F2A6B">
+        MyHelper<tspan font-weight="700">Pro</tspan>
+  </text>
+
+</svg>
