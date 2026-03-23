@@ -1,0 +1,4 @@
+[33m03c69e2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Fix supabase browser export
+[33md554d89[m Fix all supabase import paths
+[33m5f6a7e2[m fix middleware for deployment
+[33m698d9d6[m initial commit
