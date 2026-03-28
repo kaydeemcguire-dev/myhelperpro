@@ -1,23 +1,29 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/utils/supabaseClient";
+import supabase from "@/lib/supabase";
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const term = searchParams.get("term") || "";
+  try {
+    const { searchParams } = new URL(request.url);
+    const term = searchParams.get("term") || "";
 
-  if (term.trim().length < 2) {
+    // Prevent unnecessary queries
+    if (term.trim().length < 2) {
+      return NextResponse.json([]);
+    }
+
+    const { data, error } = await supabase
+      .from("providers")
+      .select("id, name, service_type")
+      .ilike("name", `%${term}%`);
+
+    if (error) {
+      console.error("SEARCH ERROR:", error);
+      return NextResponse.json([]);
+    }
+
+    return NextResponse.json(data || []);
+  } catch (err) {
+    console.error("API ERROR:", err);
     return NextResponse.json([]);
   }
-
-  const { data, error } = await supabase
-    .from("providers")
-    .select("id, name, service_type")
-    .ilike("name", `%${term}%`);
-
-  if (error) {
-    console.error("SEARCH ERROR:", error);
-    return NextResponse.json([]);
-  }
-
-  return NextResponse.json(data);
 }
