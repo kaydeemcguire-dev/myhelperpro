@@ -10,17 +10,33 @@ export default function MessagesPage() {
 
   useEffect(() => {
     const getSessionAndMessages = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setSession(session);
+      // Get session safely
+      const { data, error } = await supabase.auth.getSession();
 
-      if (session?.user?.id) {
-        const { data, error } = await supabase
+      if (error) {
+        console.error("SESSION ERROR:", error);
+        setLoading(false);
+        return;
+      }
+
+      const currentSession = data?.session || null;
+      setSession(currentSession);
+
+      // Only fetch messages if user is logged in
+      if (currentSession?.user?.id) {
+        const { data: messagesData, error: messagesError } = await supabase
           .from("messages")
           .select("*")
-          .or(`sender_auth_id.eq.${session.user.id},receiver_auth_id.eq.${session.user.id}`)
+          .or(
+            `sender_auth_id.eq.${currentSession.user.id},receiver_auth_id.eq.${currentSession.user.id}`
+          )
           .order("created_at", { ascending: true });
 
-        if (!error) setMessages(data);
+        if (messagesError) {
+          console.error("MESSAGES ERROR:", messagesError);
+        } else {
+          setMessages(messagesData || []);
+        }
       }
 
       setLoading(false);
@@ -45,7 +61,8 @@ export default function MessagesPage() {
           borderRadius: "8px",
         }}
       >
-        <strong>Messaging is disabled during Beta.</strong>  
+        <strong>Messaging is disabled during Beta.</strong>
+        <br />
         You may browse message history, but sending new messages is currently unavailable.
       </div>
 
@@ -64,11 +81,18 @@ export default function MessagesPage() {
                   borderRadius: "6px",
                 }}
               >
-                <strong>{msg.sender_auth_id === session?.user?.id ? "You" : "Provider/Customer"}</strong>:
+                <strong>
+                  {msg.sender_auth_id === session?.user?.id
+                    ? "You"
+                    : "Provider/Customer"}
+                </strong>
+                :
                 <br />
                 {msg.message_text}
                 <br />
-                <small>{new Date(msg.created_at).toLocaleString()}</small>
+                <small>
+                  {new Date(msg.created_at).toLocaleString()}
+                </small>
               </li>
             ))}
           </ul>
